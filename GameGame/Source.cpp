@@ -11,28 +11,22 @@ int main()
 
 
 
-	sf::Texture player;
-	if (!player.loadFromFile("img/Girl4.png"))
-	{
-		printf("Load failed");
-	}
-	 
 
 
-	//player
-	sf::Sprite shapplay;
-	shapplay.setTexture(player);
 
-	int X = player.getSize().x / 4;        
+
+
+
+	/*int X = player.getSize().x / 4;
 	int Y = player.getSize().y / 4;
 
 	shapplay.setTextureRect(sf::IntRect(0, 0, X, Y));
 
-	int frame = 0;
+	int frame = 0;*/
 
 	Game game;
-	
-	while (game.running()){
+
+	while (game.running()) {
 
 		game.Update();
 		game.Render();
@@ -98,18 +92,19 @@ int main()
 		{
 			frame = 0;
 		}
-		
+
 
 
 		window.draw(shapplay);
 		window.display();
-		
+
 		window.clear();*/
 
 	}
+}
 		
 		
-	}
+	
 
 
 

@@ -9,9 +9,18 @@
 class Player
 {
 private:
+
+	sf::Texture texture;
+	sf::Sprite sprite;
+
 	sf::RectangleShape shap;
 	void initV();
 	void initShape();
+
+
+	void Texture();
+
+	void Spite();
 
 	public:
 

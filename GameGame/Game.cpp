@@ -17,7 +17,7 @@ void Game::Render()
 	- render the game object
 	*/
 	this->window->clear();
-	this->player.Render(this->window);
+	this->player->Render(this->window);
 	this->window->display();
 
 }
@@ -40,15 +40,22 @@ void Game::intiwindow()
 	this->window = new sf::RenderWindow(this->videoMode, "My Game!!!");
 }
 
+void Game::intiPlayer()
+{
+	this->player = new Player();
+}
+
 Game::Game()
 {
-	this->intiV();
+	//this->intiV();
 	this->intiwindow();
+	this->intiPlayer();
 }
 
 Game::~Game()
 {
 	delete this->window;
+	delete this->player;
 }
 
 void Game::pollEvent()

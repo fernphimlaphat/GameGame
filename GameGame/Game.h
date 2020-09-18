@@ -35,11 +35,12 @@ private:
     sf::Event ev; //add
     bool endGame;
 
-    Player player;
+    Player* player;
 
     //pri.Function
     void intiV();
     void intiwindow();
+    void intiPlayer();
 
 };
 
