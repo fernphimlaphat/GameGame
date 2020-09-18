@@ -1,47 +1,99 @@
-#include "Player.h"
+﻿#include "Player.h"
 
 void Player::initV()
 {
+	this->move = false;
 }
 
-void Player::initShape()
+void Player::initTexture()
 {
-	this->shap.setFillColor(sf::Color::Blue);
-	this->shap.setSize(sf::Vector2f(100.f, 50.f));
-}
-
-void Player::Texture()
-{
-	//load file
-	sf::Texture player;
-	if (!player.loadFromFile("img/Girl4.png"))
+	if (!this->texture1.loadFromFile("img/Girl2.png"))
 	{
-		printf("Load failed");
+		printf("Not Found");
 	}
 }
 
-void Player::Spite()
+void Player::initSpite()
 {
-	//set spite == texture
-	this->spite.setTexture(this->texture);
+	this->sprite1.setTexture(this->texture1);
+	this->CurrentFrame = sf::IntRect(0, 0, 50, 75);
+
+	this->sprite1.setTextureRect(this->CurrentFrame);
+
+	//scale is add or fall width and hight of picture
+	this->sprite1.setScale(1.3f, 1.3f);
+}
+
+void Player::Animation()
+{
+	//animation not กระตุก
+	this->AnimationTime.restart();
 }
 
 Player::Player()
 {
-	this->Texture();
-	this->Spite();
-
+	this->initV();
+	this->initTexture();
+	this->initSpite();
+	this->Animation();
 }
 
 Player::~Player()
 {
 }
 
-void Player::Update()
+void Player::updateMove()
 {
+	this->move = false;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		//left
+		this->sprite1.move(-1.f, 0.f);
+		this->move = true;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{ 
+		//right
+		this->sprite1.move(1.f, 0.f);
+		this->move = true;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		//top
+		this->sprite1.move(0.f, -1.f);
+		this->move = true;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		//down
+		this->sprite1.move(0.f, 1.f);
+		this->move = true;
+	}
 }
 
-void Player::Render(sf::RenderTarget* target)
+void Player::updateAnimation()
 {
-	target->draw(this->shap);
+	//ออโต้โชว์อนิเมชัน
+	if (this->AnimationTime.getElapsedTime().asSeconds() >= 0.5f)
+	{
+		if (this->move == false)
+		{
+			this->CurrentFrame.left += 50.f;
+			if (CurrentFrame.left >= 150.f)
+				CurrentFrame.left = 0;
+		}
+		this->AnimationTime.restart();
+		this->sprite1.setTextureRect(this->CurrentFrame);
+	}
+}
+
+void Player::update()
+{
+	this->updateMove();
+	this->updateAnimation();
+}
+
+void Player::render(sf::RenderTarget& target)
+{
+	target.draw(this->sprite1);
 }

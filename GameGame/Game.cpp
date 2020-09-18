@@ -1,77 +1,68 @@
 #include "Game.h"
 
-
-
-void Game::Update()
+void Game::initWindow()
 {
-	this->pollEvent();
+	this->window.create(sf::VideoMode(800, 600), "Game!!");
+
+	//setFramlate animation smooth
+	this->window.setFramerateLimit(144);
 }
 
-void Game::Render()
+void Game::initPlayer()
 {
-	/*
-	@return void
-	- clear old Frame
-	- render object
-	- display frame in window
-	- render the game object
-	*/
-	this->window->clear();
-	this->player->Render(this->window);
-	this->window->display();
-
-}
-
-const bool Game::running() const
-{
-	return this->window->isOpen();
-}
-
-void Game::intiV()
-{
-	this->endGame = false;
-}
-
-void Game::intiwindow()
-{
-	this->videoMode.height = 600;
-	this->videoMode.width = 800;
-
-	this->window = new sf::RenderWindow(this->videoMode, "My Game!!!");
-}
-
-void Game::intiPlayer()
-{
-	this->player = new Player();
+	this->player = new Player;
 }
 
 Game::Game()
 {
-	//this->intiV();
-	this->intiwindow();
-	this->intiPlayer();
+	this->initWindow();
+	this->initPlayer();
+
 }
 
 Game::~Game()
 {
-	delete this->window;
 	delete this->player;
 }
 
-void Game::pollEvent()
+void Game::UpdatePlayer()
 {
-	while (this->window->pollEvent(this->ev))
-	{
-		switch (this->ev.type)
-		{
-		case sf::Event::Closed:
-			this->window->close();
-			break;
-		case sf::Event::KeyPressed:
-			if (this->ev.key.code == sf::Keyboard::Escape)
-				this->window->close();
-				break;
+	this->player->update();
+}
 
-		}
+void Game::RenderPlayer()
+{
+	this->player->render(this->window);
+}
+
+void Game::Update()
+{
+
+	//polling Event
+	while (this->window.pollEvent(this->ev))
+	{
+		if (ev.type == sf::Event::Closed)
+			this->window.close();
+
+		else if (this->ev.type == sf::Event::KeyPressed && this->ev.key.code == sf::Keyboard::Escape)
+			this->window.close();
 	}
+	this->UpdatePlayer();
+}
+
+void Game::Render()
+{
+	this->window.clear();
+	//this->window.clear(sf::Color::Red);
+	this->RenderPlayer();
+
+	//rander game
+
+	this->window.display();
+}
+
+const sf::RenderWindow& Game::getwindow() const
+{
+	// TODO: insert return statement here
+	return this->window;
 }

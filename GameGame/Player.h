@@ -2,32 +2,43 @@
 #include<SFML/Graphics.hpp>
 #include<SFML/System.hpp>
 #include<SFML/Window.hpp>
-#include<SFML/Audio.hpp>
-#include<SFML/Network.hpp>
-#include<Windows.h>
+#include<stdio.h>
 
 class Player
 {
 private:
+	//spitrte
+	sf::Sprite sprite1;
+	sf::Texture texture1;
+	sf::Clock AnimationTime;
 
-	sf::Texture texture;
-	sf::Sprite sprite;
+	bool move;
 
-	sf::RectangleShape shap;
-	void initV();
-	void initShape();
+	//Animation
+	sf::IntRect CurrentFrame;
+
+	//move
 
 
-	void Texture();
+	//core
 
-	void Spite();
 
-	public:
+	void initV(); // variable
+	void initTexture();
+	void initSpite();
+	void Animation();
 
-		Player();
-		virtual ~Player();
-		void Update();
-		void Render(sf::RenderTarget* target);
+
+public:
+
+	Player();
+	virtual ~Player();
+
+	//function
+	void updateMove();
+	void updateAnimation();
+	void update();
+	void render(sf::RenderTarget& target);
 
 };
 

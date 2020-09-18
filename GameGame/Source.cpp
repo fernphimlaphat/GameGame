@@ -1,10 +1,11 @@
 ﻿#include<stdio.h>
 #include "Game.h"
-
+#include<time.h>
 
 
 int main()
 {
+	srand(time(NULL));
 
 	//sf::Window window(sf::VideoMode(800, 800), "My Game");
 	//window.setTitle("Noonnnnnnn 35461331");
@@ -26,7 +27,7 @@ int main()
 
 	Game game;
 
-	while (game.running()) {
+	while (game.getwindow().isOpen()) {
 
 		game.Update();
 		game.Render();
@@ -99,9 +100,10 @@ int main()
 		window.display();
 
 		window.clear();*/
+	}
 
 	}
-}
+
 		
 		
 	

@@ -1,49 +1,36 @@
-#include<SFML/Graphics.hpp>
-#include<SFML/System.hpp>
-#include<SFML/Window.hpp>
-#include<SFML/Audio.hpp>
-#include<SFML/Network.hpp>
-#include<Windows.h>
 
-#include "player.h"
-
-#ifndef Game_h
-#define Game_h
+#include "Player.h"
 
 
 
 
 class Game
 {
-public:
-    Game();
-    virtual ~Game();
-    void pollEvent(); //sfmlEvent
-    void Update();
-    void Render();
 
-    //const
-    const bool running() const; 
+private :
 
+	sf::RenderWindow window;
+	sf::Event ev;
 
-private:
+	Player* player;
 
-// value
-    //window
-    sf::RenderWindow* window;
-    sf::VideoMode videoMode;
-    sf::Event ev; //add
-    bool endGame;
+	void initWindow();
+	void initPlayer();
 
-    Player* player;
+public: 
+	//Function
+	Game();
+	virtual ~Game();
 
-    //pri.Function
-    void intiV();
-    void intiwindow();
-    void intiPlayer();
+	//Function
+	void UpdatePlayer();
+	void RenderPlayer();
+	void Update();
+	void Render();
+	const sf::RenderWindow& getwindow() const;
+
 
 };
 
-#endif // !Game_hpp
 
 
