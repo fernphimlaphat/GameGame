@@ -2,7 +2,7 @@
 
 void Player::initV()
 {
-	this->move = false;
+	this->animationState = Player_animation_state::IDLE;
 }
 
 void Player::initTexture()
@@ -44,40 +44,62 @@ Player::~Player()
 
 void Player::updateMove()
 {
-	this->move = false;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	this->animationState = Player_animation_state::IDLE;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
 	{
 		//left
 		this->sprite1.move(-1.f, 0.f);
-		this->move = true;
+		this->animationState = Player_animation_state::Move_left;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
 	{ 
 		//right
 		this->sprite1.move(1.f, 0.f);
-		this->move = true;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		this->animationState = Player_animation_state::Move_right;
+
+	}  
+
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
 	{
 		//top
 		this->sprite1.move(0.f, -1.f);
-		this->move = true;
+		this->animationState = Player_animation_state::Move_top;
+
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
 	{
 		//down
 		this->sprite1.move(0.f, 1.f);
-		this->move = true;
+		this->animationState = Player_animation_state::Move_down;
+
 	}
 }
 
 void Player::updateAnimation()
 {
-	//ออโต้โชว์อนิเมชัน
-	if (this->AnimationTime.getElapsedTime().asSeconds() >= 0.5f)
+	/*if (this->animationState == Player_animation_state::IDLE)
 	{
-		if (this->move == true)
+
+			/*
+		//ออโต้โชว์อนิเมชัน
+
+		if (this->AnimationTime.getElapsedTime().asSeconds() >= .3f)
+		this->currentFrame.left += 50.f;
+		if(this->currentFrame.left >= 200.f)
 		{
+		this->currentFrame.left = 0; เลื่อนอนิเมชั่นตามแกน  X
+		this->currentFrame.top = 0;  ในแกน Y ที่เท่าไหร่ ที่จะให้แสดงอัติโนมัต
+		} 
+
+		
+
+
+		if (this->AnimationTime.getElapsedTime().asSeconds() >= .3f)
+		{
+
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
 				this->CurrentFrame.left += 50.f;
@@ -104,16 +126,52 @@ void Player::updateAnimation()
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 			{
-				this->CurrentFrame.left += 50.f;
 				if (CurrentFrame.left >= 200.f)
 					CurrentFrame.left = 0;
 				CurrentFrame.top = 225;
 			}
-		}
 
-		this->AnimationTime.restart();
-		this->sprite1.setTextureRect(this->CurrentFrame);
+
+			this->AnimationTime.restart();
+			this->sprite1.setTextureRect(this->CurrentFrame);
+		}
+	}*/
+	 
+	if(this->animationState == Player_animation_state::Move_right)
+	{
+		if (this->AnimationTime.getElapsedTime().asSeconds() >= .2f)
+		{
+
+			this->CurrentFrame.left += 50.f;
+			this->CurrentFrame.top = 150.f;
+			if (CurrentFrame.left >= 200.f)
+			{
+				this->CurrentFrame.left = 0;
+			}
+
+			this->AnimationTime.restart();
+			this->sprite1.setTextureRect(this->CurrentFrame);
+		}
+		
+		
+
 	}
+	else
+	{
+	
+		
+			this->CurrentFrame.left = 0.f;
+			this->CurrentFrame.top = 150.f;
+
+			this->AnimationTime.restart();
+			this->sprite1.setTextureRect(this->CurrentFrame);
+
+		
+
+
+
+	}
+
 }
 
 void Player::update()

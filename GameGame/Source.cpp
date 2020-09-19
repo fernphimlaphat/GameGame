@@ -5,7 +5,7 @@
 
 int main()
 {
-	//srand(time(NULL));
+	srand(time(NULL));
 	Game game;
 
 	while (game.getwindow().isOpen()) {

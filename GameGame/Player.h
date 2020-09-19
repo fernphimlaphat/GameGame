@@ -1,8 +1,15 @@
-#pragma once
+﻿#pragma once
 #include<SFML/Graphics.hpp>
 #include<SFML/System.hpp>
 #include<SFML/Window.hpp>
 #include<stdio.h>
+
+
+//กำหนดให้เดินไม่เกินขอบเขต
+enum Player_animation_state{IDLE = 0,Move_left, Move_right, Move_top, Move_down};
+
+
+
 
 class Player
 {
@@ -12,10 +19,11 @@ private:
 	sf::Texture texture1;
 	sf::Clock AnimationTime;
 
-	bool move;
+
 
 	//Animation
 	sf::IntRect CurrentFrame;
+	short animationState;
 
 	//move
 
