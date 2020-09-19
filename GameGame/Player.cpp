@@ -7,7 +7,7 @@ void Player::initV()
 
 void Player::initTexture()
 {
-	if (!this->texture1.loadFromFile("img/Girl2.png"))
+	if (!this->texture1.loadFromFile("img/Player1.png"))
 	{
 		printf("Not Found");
 	}
@@ -76,12 +76,41 @@ void Player::updateAnimation()
 	//ออโต้โชว์อนิเมชัน
 	if (this->AnimationTime.getElapsedTime().asSeconds() >= 0.5f)
 	{
-		if (this->move == false)
+		if (this->move == true)
 		{
-			this->CurrentFrame.left += 50.f;
-			if (CurrentFrame.left >= 150.f)
-				CurrentFrame.left = 0;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			{
+				this->CurrentFrame.left += 50.f;
+				if (CurrentFrame.left >= 200.f)
+					CurrentFrame.left = 0;
+				CurrentFrame.top = 75;
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			{
+				this->CurrentFrame.left += 50.f;
+				if (CurrentFrame.left >= 200.f)
+					CurrentFrame.left = 0;
+				CurrentFrame.top = 150;
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			{
+				this->CurrentFrame.left += 50.f;
+				if (CurrentFrame.left >= 200.f)
+					CurrentFrame.left = 0;
+				CurrentFrame.top = 0;
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			{
+				this->CurrentFrame.left += 50.f;
+				if (CurrentFrame.left >= 200.f)
+					CurrentFrame.left = 0;
+				CurrentFrame.top = 225;
+			}
 		}
+
 		this->AnimationTime.restart();
 		this->sprite1.setTextureRect(this->CurrentFrame);
 	}
